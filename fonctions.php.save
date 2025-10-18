@@ -1,11 +1,9 @@
 <?php	
 	//****************Fonctions utilisées*****************************************************************
-	$pdo = new PDO('mysql:host=mdb;port=3306;dbname=projet','user','userpass');
 	
 	function authentification($mail,$pass){
 		$retour = false ;
-		global $pdo;
-		$madb = $pdo;
+		$madb = new PDO('sqlite:bdd/comptes.sqlite');
 		$mail= $madb->quote($mail);
 		$pass = $madb->quote($pass);
 		$requete = "SELECT EMAIL,PASS FROM utilisateurs WHERE EMAIL = $mail AND PASS = $pass;" ;
@@ -21,8 +19,7 @@
 	function isAdmin($mail){
 		$retour = false ;
 		// connexion BDD
-		global $pdo;
-		$madb = $pdo; 
+		$madb = new PDO('sqlite:bdd/comptes.sqlite'); 
 		$mail= $madb->quote($mail);
 		// requete SQL
 		$sql="SELECT STATUT FROM utilisateurs WHERE EMAIL=$mail;";
@@ -39,8 +36,7 @@
 	function listerEtudiants()	{
 		$retour = false ;	
 		// connexion BDD Etudiants!!!!
-		global $pdo;
-		$madb = $pdo;		
+		$madb = new PDO('sqlite:bdd/etudiants_grp.db');		
 		// requete SQL
 		$sql="SELECT Nom, NoEtu, NoGroupe FROM Etudiants ;";
 		// Execution requête
@@ -53,8 +49,7 @@
 	function listerGroupes()	{
 		$retour = false ;	
 		// connexion BDD Etudiants!!!!
-		global $pdo;
-		$db = $pdo;
+		$db = new PDO('sqlite:bdd/etudiants_grp.db');		
 		// requete SQL
 		$sql="SELECT NoGroupe, NomGroupe, TailleGroupe FROM Groupes ;";
 		// Execution requête
